@@ -1,0 +1,87 @@
+openapi: 3.0.0
+info:
+  title: hyper2ch
+  version: 1.0.0
+  contact:
+    name: itok01
+    email: contact@itok01.com
+    url: https://www.itok01.com/
+
+paths:
+  /{bbs}:
+    get:
+      operationId: getBbs
+      summary: 板のトップページ
+      parameters:
+        - name: bbs
+          in: path
+          description: 板
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+
+  /{bbs}/subject.txt:
+    get:
+      operationId: getThreadList
+      summary: スレッド一覧
+      parameters:
+        - name: bbs
+          in: path
+          description: 板
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+
+  /{bbs}/dat/{key}.dat:
+    get:
+      operationId: getDat
+      summary: datの取得
+      parameters:
+        - name: bbs
+          in: path
+          description: 板
+          required: true
+          schema:
+            type: string
+        - name: key
+          in: path
+          description: スレッドID
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: OK
+
+  /test/bbs.cgi:
+    post:
+      operationId: postMessage
+      summary: 書き込み
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                subject:
+                  type: string
+                FROM:
+                  type: string
+                mail:
+                  type: string
+                MESSAGE:
+                  type: string
+                bbs:
+                  type: string
+                key:
+                  type: number
+      responses:
+        "200":
+          description: OK

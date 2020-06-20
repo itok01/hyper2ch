@@ -1,0 +1,9 @@
+{
+    "site_name": "hyper2ch",
+    "listen_host": "0.0.0.0:80",
+    "domain": "localhost",
+    "database_host": "localhost:27017",
+    "database_username": "hyper2ch",
+    "database_password": "pass",
+    "database_name": "hyper2ch"
+}
