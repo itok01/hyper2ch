@@ -1,7 +1,7 @@
 use chrono::prelude::*;
 
-/// 曜日の列挙型を日本語に変換
-fn format_japan_weekday(weekday: &Weekday) -> &str {
+/// Format a weekday to Japanese
+fn format_japanese_weekday(weekday: &Weekday) -> &str {
     match weekday {
         Weekday::Mon => "月",
         Weekday::Tue => "火",
@@ -13,8 +13,8 @@ fn format_japan_weekday(weekday: &Weekday) -> &str {
     }
 }
 
-/// 日本語の日付の文字列を生成
-pub fn format_japan_datetime(datetime: &DateTime<Utc>) -> String {
+/// Gererate a datetime in Japanese format
+pub fn format_japan_datetime(datetime: &DateTime<FixedOffset>) -> String {
     let datetime = datetime.with_timezone(&Local);
 
     format!(
@@ -22,7 +22,7 @@ pub fn format_japan_datetime(datetime: &DateTime<Utc>) -> String {
         datetime.year(),
         datetime.month(),
         datetime.day(),
-        format_japan_weekday(&datetime.weekday()),
+        format_japanese_weekday(&datetime.weekday()),
         datetime.hour(),
         datetime.minute(),
         datetime.second(),

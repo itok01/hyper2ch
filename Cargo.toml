@@ -1,26 +1,22 @@
 [package]
-name = "hypernichannel"
+name = "hyper2ch"
 version = "0.1.0"
 authors = ["itok01 <contact@itok01.com>"]
 edition = "2018"
-description = "Rustで実装した掲示板"
 readme = "README.md"
 license = "MIT"
 repository = "https://github.com/itok01/hyper2ch"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
-actix-web = "2.0"
 actix-rt = "1.1"
-env_logger = "0.7"
-serde = "1.0"
-serde_json = "1.0"
-tera = "1.3"
-encoding_rs = "0.8"
-htmlescape = "0.3"
-bytes = { version = "0.5", features = ["serde"] }
-mongodb = "1.0"
+actix-web = "3"
+bytes = "0.5"
 chrono = { version = "0.4", features = ["serde"] }
+clap = { version = "3.0.0-beta.1", features = ["yaml"] }
+encoding_rs = "0.8"
+env_logger = "0.7"
+htmlescape = "0.3"
 percent-encoding = "2.1"
-tokio = "0.2"
+serde = "1.0"
+tokio = { version = "0.2", features = ["macros"] }
+tokio-postgres = { version = "0.5", features = ["with-chrono-0_4"] }

@@ -2,7 +2,7 @@ use bytes::Bytes;
 use percent_encoding::percent_decode_str;
 use std::collections::HashMap;
 
-use crate::encoding::shift_jis_bytes_to_string;
+use crate::util::shift_jis_bytes_to_string;
 
 /// Shift_JISのフォームデータを読み込む
 pub fn parse_shift_jis_formdata<S: Into<String>>(raw_data: S) -> HashMap<String, String> {
