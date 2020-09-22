@@ -14,7 +14,7 @@ fn format_japanese_weekday(weekday: &Weekday) -> &str {
 }
 
 /// Gererate a datetime in Japanese format
-pub fn format_japan_datetime(datetime: &DateTime<FixedOffset>) -> String {
+pub fn format_japan_datetime(datetime: &DateTime<Local>) -> String {
     let datetime = datetime.with_timezone(&Local);
 
     format!(

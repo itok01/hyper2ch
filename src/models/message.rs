@@ -12,7 +12,7 @@ pub struct Message {
     pub user_ip: String,
     pub user_hostname: String,
     pub user_agent: String,
-    pub timestamp: DateTime<FixedOffset>,
+    pub timestamp: DateTime<Local>,
     pub text: String,
     pub hidden: bool,
 }
@@ -44,7 +44,7 @@ impl Message {
         user_ip: &str,
         user_hostname: &str,
         user_agent: &str,
-        timestamp: DateTime<FixedOffset>,
+        timestamp: DateTime<Local>,
         text: &str,
     ) -> Result<Message, Error> {
         let (client, connection) = db::connect().await?;
@@ -126,7 +126,7 @@ impl Message {
         let user_ip: String = row.get(5);
         let user_hostname: String = row.get(6);
         let user_agent: String = row.get(7);
-        let timestamp: DateTime<FixedOffset> = row.get(8);
+        let timestamp: DateTime<Local> = row.get(8);
         let text: String = row.get(9);
         let hidden: bool = row.get(10);
 
@@ -171,7 +171,7 @@ impl Message {
                 let user_ip: String = row.get(5);
                 let user_hostname: String = row.get(6);
                 let user_agent: String = row.get(7);
-                let timestamp: DateTime<FixedOffset> = row.get(8);
+                let timestamp: DateTime<Local> = row.get(8);
                 let text: String = row.get(9);
                 let hidden: bool = row.get(10);
 
@@ -235,9 +235,7 @@ mod tests {
 
     #[tokio::test]
     async fn create_and_find_and_delete() {
-        let timestamp = FixedOffset::east(9 * 3600)
-            .ymd(2014, 11, 28)
-            .and_hms_nano(21, 45, 59, 324310000);
+        let timestamp = Local::now();
         let message = Message::create(
         1,
         "名無し",

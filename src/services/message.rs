@@ -26,7 +26,7 @@ pub async fn post_message_handler(b: Bytes, req: HttpRequest) -> impl Responder 
                 connection_info.realip_remote_addr().unwrap(),
                 connection_info.host(),
                 headers.get(header::USER_AGENT).unwrap().to_str().unwrap(),
-                Utc::now().with_timezone(&Utc::now().timezone().fix()),
+                Local::now(),
                 &message_data.text,
             )
             .await
@@ -47,7 +47,7 @@ pub async fn post_message_handler(b: Bytes, req: HttpRequest) -> impl Responder 
                 connection_info.realip_remote_addr().unwrap(),
                 connection_info.host(),
                 headers.get(header::USER_AGENT).unwrap().to_str().unwrap(),
-                Utc::now().with_timezone(&Utc::now().timezone().fix()),
+                Local::now(),
                 &message_data.text,
             )
             .await

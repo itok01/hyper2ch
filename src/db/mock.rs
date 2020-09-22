@@ -28,9 +28,7 @@ pub async fn create_mock() -> Result<(), Error> {
         "192.168.1.2",
         "example.com",
         "Dog Browser",
-        FixedOffset::east(9 * 3600)
-            .ymd(2014, 11, 28)
-            .and_hms_nano(21, 45, 59, 324310000),
+        Local::now(),
         "立てました",
     )
     .await?;
@@ -42,9 +40,7 @@ pub async fn create_mock() -> Result<(), Error> {
         "192.168.1.2",
         "example.com",
         "Dog Browser",
-        FixedOffset::east(9 * 3600)
-            .ymd(2014, 11, 28)
-            .and_hms_nano(21, 46, 32, 534310000),
+        Local::now(),
         "立てました",
     )
     .await?;
@@ -56,9 +52,7 @@ pub async fn create_mock() -> Result<(), Error> {
         "192.168.1.2",
         "example.com",
         "Dog Browser",
-        FixedOffset::east(9 * 3600)
-            .ymd(2014, 11, 28)
-            .and_hms_nano(21, 47, 24, 644310000),
+        Local::now(),
         "立てました",
     )
     .await?;
@@ -70,9 +64,7 @@ pub async fn create_mock() -> Result<(), Error> {
         "192.168.1.2",
         "example.com",
         "Dog Browser",
-        FixedOffset::east(9 * 3600)
-            .ymd(2014, 11, 28)
-            .and_hms_nano(21, 48, 58, 954310000),
+        Local::now(),
         "ありがとう",
     )
     .await?;
