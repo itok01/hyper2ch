@@ -1,4 +1,5 @@
 use crate::models::{get_id_by_bbs_path_name, Message, Thread};
+use crate::util::convert_to_shift_jis;
 use crate::util::{parse_shift_jis_formdata, shift_jis_bytes_to_string};
 use actix_web::{http::header, post, HttpRequest, HttpResponse, Responder};
 use bytes::Bytes;
@@ -55,7 +56,9 @@ pub async fn post_message_handler(b: Bytes, req: HttpRequest) -> impl Responder 
         }
     }
 
-    HttpResponse::Ok().finish()
+    HttpResponse::Ok()
+        .content_type("text/html; charset=Shift_JIS")
+        .body(convert_to_shift_jis(POST_MESSAGE_OK_HTML))
 }
 
 /// Form data model that post_message_handler receive
@@ -95,3 +98,13 @@ impl PostMessageData {
         })
     }
 }
+
+const POST_MESSAGE_OK_HTML: &str = "
+<html lang=\"ja\">
+<head>
+<title>書きこみました。</title>
+<meta http-equiv=\"Content-Type\" content=\"text/html; charset=Shift_JIS\">
+</head>
+<body>書きこみが終わりました。</body>
+</html>
+";
