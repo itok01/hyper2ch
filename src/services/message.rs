@@ -11,7 +11,6 @@ use std::collections::HashMap;
 #[post("/test/bbs.cgi")]
 pub async fn post_message_handler(b: Bytes, req: HttpRequest) -> impl Responder {
     let data = shift_jis_bytes_to_string(b);
-    println!("{:?}", data);
     let data = parse_shift_jis_formdata(data);
     let message_data = PostMessageData::from_hashmap(data).unwrap();
     let connection_info = req.connection_info();
