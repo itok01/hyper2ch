@@ -1,5 +1,5 @@
 use crate::models::Bbs;
-use crate::util::convert_to_shift_jis;
+use crate::util::{convert_to_shift_jis, get_env};
 use actix_web::{get, web, HttpResponse, Responder};
 use bytes::Bytes;
 use htmlescape::encode_minimal;
@@ -37,34 +37,33 @@ fn generate_bbsmenu_html(bbses: Vec<Bbs>) -> Option<Bytes> {
         return None;
     }
 
+    let site_address = get_env("SITE_ADDRESS");
+
     let mut bbs_list = String::from(BBSMENU_HTML_TOP);
     let mut category = bbses[0].category.clone();
-    bbs_list.push_str(&format!("<br><B>{}</B><br>\n", category));
+    bbs_list.push_str(&format!(
+        "<h1><a href={}>hyper2ch</a></h1>\n<h2>BBS MENU</h2>\n<ul>\n",
+        site_address
+    ));
+    bbs_list.push_str(&format!("<li><h3>{}</h3></li>\n<ul>\n", category));
     for bbs in bbses {
         if category != bbs.category {
             category = bbs.category;
-            bbs_list.push_str(&format!("<br><br><B>{}</B><br><br>\n", category));
+            bbs_list.push_str(&format!("</ul>\n<li><h3>{}</h3></li>\n<ul>\n", category));
         }
         let name = encode_minimal(&bbs.name);
-        bbs_list.push_str(format!("<A HREF=\"/{}\">{}</A><br>\n", bbs.path_name, name,).as_str());
+        bbs_list.push_str(
+            format!(
+                "<li><a href=\"{}/{}/\">{}</a></li>\n",
+                site_address, bbs.path_name, name
+            )
+            .as_str(),
+        );
     }
     bbs_list.push_str(BBSMENU_HTML_BOTTOM);
     let bbs_list_sjis = convert_to_shift_jis(bbs_list);
     Option::from(bbs_list_sjis)
 }
 
-const BBSMENU_HTML_TOP: &str = "
-<HTML>
-<HEAD>
-<META http-equiv=\"Content-Type\" content=\"text/html; charset=Shift_JIS\">
-<TITLE>BBS MENU for hyper2ch</TITLE>
-</HEAD>
-<BODY TEXT=\"#CC3300\" BGCOLOR=\"#FFFFFF\" link=\"#0000FF\" alink=\"#ff0000\" vlink=\"#660099\">
-<font size=2>
-";
-
-const BBSMENU_HTML_BOTTOM: &str = "
-</font>
-</BODY>
-</HTML>
-";
+const BBSMENU_HTML_TOP: &str = "<html>\n<head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=shift_jis\">\n<title>BBS MENU for hyper2ch</title>\n</head>\n<body>";
+const BBSMENU_HTML_BOTTOM: &str = "</ul>\n</body>\n</html>";
