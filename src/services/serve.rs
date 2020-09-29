@@ -1,4 +1,4 @@
-use super::*;
+use super::legacy;
 use crate::util::get_env;
 use actix_web::{middleware, App, HttpServer};
 
@@ -11,11 +11,11 @@ pub async fn run() -> std::io::Result<()> {
 
         App::new()
             .wrap(middleware::Logger::default())
-            .service(get_bbs_handler)
-            .service(get_bbs_menu_handler)
-            .service(get_subject_txt_handler)
-            .service(get_thread_dat_handler)
-            .service(post_message_handler)
+            .service(legacy::get_bbs_handler)
+            .service(legacy::get_bbs_menu_handler)
+            .service(legacy::get_subject_txt_handler)
+            .service(legacy::get_thread_dat_handler)
+            .service(legacy::post_message_handler)
     })
     .bind(format!("0.0.0.0:{}", get_env("BACKEND_PORT")))?
     .run()
