@@ -1,4 +1,4 @@
-use super::legacy;
+use super::*;
 use crate::util::get_env;
 use actix_web::{middleware, App, HttpServer};
 
@@ -16,6 +16,7 @@ pub async fn run() -> std::io::Result<()> {
             .service(legacy::get_subject_txt_handler)
             .service(legacy::get_thread_dat_handler)
             .service(legacy::post_message_handler)
+            .service(get_threads_handler)
     })
     .bind(format!("0.0.0.0:{}", get_env("BACKEND_PORT")))?
     .run()
