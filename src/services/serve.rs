@@ -4,11 +4,11 @@ use actix_web::{middleware, App, HttpServer};
 
 /// Run HTTP server
 pub async fn run() -> std::io::Result<()> {
+    // Logger
+    std::env::set_var("RUST_LOG", "actix_web=info");
+    env_logger::init();
+    
     HttpServer::new(|| {
-        // Logger
-        std::env::set_var("RUST_LOG", "actix_web=info");
-        env_logger::init();
-
         App::new()
             .wrap(middleware::Logger::default())
             .service(legacy::get_bbs_handler)
