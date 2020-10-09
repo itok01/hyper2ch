@@ -8,6 +8,7 @@ license = "MIT"
 repository = "https://github.com/itok01/hyper2ch"
 
 [dependencies]
+actix-cors = "0.4"
 actix-rt = "1.1"
 actix-web = "3"
 bytes = "0.5"
