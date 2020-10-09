@@ -1,0 +1,17 @@
+example.com {
+    tls ./certs/example.com.pem ./certs/example.com-key.pem
+
+    redir https://www.example.com
+}
+
+www.example.com {
+    tls ./certs/www.example.com.pem ./certs/www.example.com-key.pem
+
+    reverse_proxy 127.0.0.1:3000
+}
+
+api.example.com {
+    tls ./certs/api.example.com.pem ./certs/api.example.com-key.pem
+
+    reverse_proxy 127.0.0.1:3001
+}
