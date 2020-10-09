@@ -42,7 +42,7 @@ fn generate_bbsmenu_html(bbses: Vec<Bbs>) -> Option<Bytes> {
     let mut bbs_list = String::from(BBSMENU_HTML_TOP);
     let mut category = bbses[0].category.clone();
     bbs_list.push_str(&format!(
-        "<h1><a href=https://{}>hyper2ch</a></h1>\n<h2>BBS MENU</h2>\n<ul>\n",
+        "<h1><a href={}>hyper2ch</a></h1>\n<h2>BBS MENU</h2>\n<ul>\n",
         backend_address
     ));
     bbs_list.push_str(&format!("<li><h3>{}</h3></li>\n<ul>\n", category));
@@ -54,7 +54,7 @@ fn generate_bbsmenu_html(bbses: Vec<Bbs>) -> Option<Bytes> {
         let name = encode_minimal(&bbs.name);
         bbs_list.push_str(
             format!(
-                "<li><a href=\"https://{}/{}/\">{}</a></li>\n",
+                "<li><a href=\"{}/{}/\">{}</a></li>\n",
                 backend_address, bbs.path_name, name
             )
             .as_str(),
