@@ -24,6 +24,7 @@ pub async fn run() -> std::io::Result<()> {
             .service(legacy::post_message_handler)
             .service(get_threads_handler)
             .service(get_messages_handler)
+            .service(get_bbs_list_handler)
     })
     .bind(format!("0.0.0.0:{}", get_env("BACKEND_PORT")))?
     .run()
