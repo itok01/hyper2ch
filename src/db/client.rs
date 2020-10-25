@@ -1,5 +1,5 @@
 use crate::cli::is_using_test_db;
-use crate::util::get_env;
+use dotenv_codegen::dotenv;
 use tokio_postgres::{tls::NoTlsStream, Client, Connection, Error, NoTls, Socket};
 
 /// Connect to a database
@@ -8,10 +8,10 @@ pub async fn connect() -> Result<(Client, Connection<Socket, NoTlsStream>), Erro
     return tokio_postgres::connect(
         &format!(
             "postgresql://{}:{}@{}/{}",
-            get_env("TEST_DATABASE_USER"),
-            get_env("TEST_DATABASE_PASSWORD"),
-            get_env("TEST_DATABASE_HOST"),
-            get_env("TEST_DATABASE_NAME")
+            dotenv!("TEST_DATABASE_USER"),
+            dotenv!("TEST_DATABASE_PASSWORD"),
+            dotenv!("TEST_DATABASE_HOST"),
+            dotenv!("TEST_DATABASE_NAME")
         ),
         NoTls,
     )
@@ -32,18 +32,18 @@ pub fn get_db_url() -> String {
     if is_using_test_db() {
         format!(
             "postgresql://{}:{}@{}/{}",
-            get_env("TEST_DATABASE_USER"),
-            get_env("TEST_DATABASE_PASSWORD"),
-            get_env("TEST_DATABASE_HOST"),
-            get_env("TEST_DATABASE_NAME")
+            dotenv!("TEST_DATABASE_USER"),
+            dotenv!("TEST_DATABASE_PASSWORD"),
+            dotenv!("TEST_DATABASE_HOST"),
+            dotenv!("TEST_DATABASE_NAME")
         )
     } else {
         format!(
             "postgresql://{}:{}@{}/{}",
-            get_env("DATABASE_USER"),
-            get_env("DATABASE_PASSWORD"),
-            get_env("DATABASE_HOST"),
-            get_env("DATABASE_NAME")
+            dotenv!("DATABASE_USER"),
+            dotenv!("DATABASE_PASSWORD"),
+            dotenv!("DATABASE_HOST"),
+            dotenv!("DATABASE_NAME")
         )
     }
 }
@@ -53,16 +53,16 @@ pub fn get_postgres_url() -> String {
     if is_using_test_db() {
         format!(
             "postgresql://{}:{}@{}/postgres",
-            get_env("TEST_DATABASE_USER"),
-            get_env("TEST_DATABASE_PASSWORD"),
-            get_env("TEST_DATABASE_HOST")
+            dotenv!("TEST_DATABASE_USER"),
+            dotenv!("TEST_DATABASE_PASSWORD"),
+            dotenv!("TEST_DATABASE_HOST")
         )
     } else {
         format!(
             "postgresql://{}:{}@{}/postgres",
-            get_env("DATABASE_USER"),
-            get_env("DATABASE_PASSWORD"),
-            get_env("DATABASE_HOST"),
+            dotenv!("DATABASE_USER"),
+            dotenv!("DATABASE_PASSWORD"),
+            dotenv!("DATABASE_HOST"),
         )
     }
 }
@@ -70,17 +70,17 @@ pub fn get_postgres_url() -> String {
 /// Get appropriate database name
 pub fn get_db_name() -> String {
     if is_using_test_db() {
-        get_env("TEST_DATABASE_NAME")
+        dotenv!("TEST_DATABASE_NAME").to_string()
     } else {
-        get_env("DATABASE_NAME")
+        dotenv!("DATABASE_NAME").to_string()
     }
 }
 
 /// Get appropriate database user
 pub fn get_db_user() -> String {
     if is_using_test_db() {
-        get_env("TEST_DATABASE_USER")
+        dotenv!("TEST_DATABASE_USER").to_string()
     } else {
-        get_env("DATABASE_USER")
+        dotenv!("DATABASE_USER").to_string()
     }
 }

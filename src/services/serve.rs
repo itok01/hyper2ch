@@ -1,7 +1,7 @@
 use super::*;
-use crate::util::get_env;
 use actix_cors::Cors;
 use actix_web::{middleware, App, HttpServer};
+use dotenv_codegen::dotenv;
 
 /// Run HTTP server
 pub async fn run() -> std::io::Result<()> {
@@ -14,7 +14,7 @@ pub async fn run() -> std::io::Result<()> {
             .wrap(middleware::Logger::default())
             .wrap(
                 Cors::new()
-                    .allowed_origin(&get_env("FRONTEND_ADDRESS"))
+                    .allowed_origin(dotenv!("FRONTEND_ADDRESS"))
                     .finish(),
             )
             .service(legacy::get_bbs_handler)
@@ -26,7 +26,7 @@ pub async fn run() -> std::io::Result<()> {
             .service(get_messages_handler)
             .service(get_bbs_list_handler)
     })
-    .bind(format!("0.0.0.0:{}", get_env("BACKEND_PORT")))?
+    .bind(format!("0.0.0.0:{}", dotenv!("BACKEND_PORT")))?
     .run()
     .await
 }

@@ -1,7 +1,8 @@
 use crate::models::Bbs;
-use crate::util::{convert_to_shift_jis, get_env};
+use crate::util::convert_to_shift_jis;
 use actix_web::{get, web, HttpResponse, Responder};
 use bytes::Bytes;
+use dotenv_codegen::dotenv;
 use htmlescape::encode_minimal;
 
 #[get("/{bbs_path_name}/")]
@@ -37,7 +38,7 @@ fn generate_bbsmenu_html(bbses: Vec<Bbs>) -> Option<Bytes> {
         return None;
     }
 
-    let backend_address = get_env("BACKEND_ADDRESS");
+    let backend_address = dotenv!("BACKEND_ADDRESS");
 
     let mut bbs_list = String::from(BBSMENU_HTML_TOP);
     let mut category = bbses[0].category.clone();
