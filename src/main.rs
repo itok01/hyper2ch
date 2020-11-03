@@ -1,8 +1,14 @@
 mod cli;
 mod db;
 mod models;
+mod models_diesel;
+#[macro_use]
+mod schema;
 mod services;
 mod util;
+
+#[macro_use]
+extern crate diesel;
 
 use cli::*;
 use services::run;
