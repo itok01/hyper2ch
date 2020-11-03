@@ -1,4 +1,4 @@
-use crate::schema::bbs;
+use crate::schema::bbses;
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
 use dotenv::dotenv;
@@ -22,7 +22,7 @@ pub struct Bbs {
 }
 
 #[derive(Insertable)]
-#[table_name = "bbs"]
+#[table_name = "bbses"]
 pub struct NewBbs<'a> {
     pub name: &'a str,
     pub path_name: &'a str,

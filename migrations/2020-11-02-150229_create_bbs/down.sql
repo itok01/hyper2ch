@@ -1,1 +1,1 @@
-DROP TABLE bbs
+DROP TABLE bbses

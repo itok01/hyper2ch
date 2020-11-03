@@ -1,5 +1,5 @@
 table! {
-    bbs (id) {
+    bbses (id) {
         id -> Int8,
         name -> Text,
         path_name -> Text,
